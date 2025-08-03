@@ -1,0 +1,6 @@
+{
+	"dependencies": {
+		"lodash-es": "^4.17.21",
+		"wot-design-uni": "^1.10.0"
+	}
+}
