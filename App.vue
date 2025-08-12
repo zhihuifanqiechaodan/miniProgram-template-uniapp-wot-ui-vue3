@@ -36,7 +36,8 @@
 		const networkType = await getNetworkType()
 		appStore.setNetworkType(networkType)
 		appStore.setIsConnected(networkType == 'none' ? false : true)
-		console.log(appStore.$state)
+		console.log('========================👇 appStore.$state 👇========================\n\n', appStore
+			.$state, '\n\n');
 	})
 	onShow(() => {
 		console.log('App Show')
@@ -58,4 +59,7 @@
 
 <style>
 	/*每个页面公共css */
+	::-webkit-scrollbar {
+		display: none;
+	}
 </style>

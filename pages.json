@@ -7,6 +7,7 @@
 		}
 	},
 	"tabBar": {
+		"borderStyle": "black",
 		"list": [{
 				"pagePath": "pages/home/index",
 				"text": "home"

@@ -25,7 +25,6 @@ export const getSystemInfoSync = () => {
 export const navigateTo = ({
 	url = '',
 	type = "navigateTo",
-	toast,
 	delta = 1,
 	checkIsConnected = true,
 	events = {},
@@ -44,13 +43,10 @@ export const navigateTo = ({
 			options.delta = delta;
 		}
 		if (checkIsConnected && !appStore.isConnected) {
-			if (toast) {
-				toast.show("似乎已经断开了与互联网的连接");
-			} else {
-				uni.showToast({
-					title: "似乎已经断开了与互联网的连接",
-				});
-			}
+			uni.showToast({
+				title: "似乎已经断开了与互联网的连接",
+				icon: 'none'
+			});
 			return;
 		}
 		if (
@@ -102,21 +98,16 @@ export const getCurrentPageIndex = ({
 			return `/${item.route}` === path;
 		});
 };
-export const checkNetwork = ({
-	toast
-}) => {
+export const checkNetwork = () => {
 	const appStore = useAppStore();
 	return new Promise((resolve, reject) => {
 		if (appStore.isConnected) {
 			resolve();
 		} else {
-			if (toast) {
-				toast.show("似乎已经断开了与互联网的连接");
-			} else {
-				uni.showToast({
-					title: "似乎已经断开了与互联网的连接",
-				});
-			}
+			uni.showToast({
+				title: '似乎已经断开了与互联网的连接',
+				icon: 'none'
+			})
 			reject("似乎已经断开了与互联网的连接");
 		}
 	});

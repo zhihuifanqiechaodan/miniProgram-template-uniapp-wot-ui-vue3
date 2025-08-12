@@ -1,4 +1,5 @@
 import App from './App'
+import catchAndLogException from '@/utils/catchAndLogException.js'
 
 // #ifndef VUE3
 import Vue from 'vue'
@@ -18,7 +19,9 @@ import {
 import * as Pinia from 'pinia';
 export function createApp() {
 	const app = createSSRApp(App)
-	app.use(Pinia.createPinia());
+	app
+		.use(Pinia.createPinia())
+		.use(catchAndLogException)
 	return {
 		app,
 		Pinia

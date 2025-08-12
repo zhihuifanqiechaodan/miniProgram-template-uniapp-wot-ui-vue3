@@ -1,6 +1,12 @@
 <template>
   <view class="content">
-    <custom-nav-bar :showHome="true" />
+    <custom-nav-bar
+      :showHome="true"
+      custom-style="background-color: #ffffff;"
+    />
+    <custom-broken-network
+      :brokenNetworkStatus="brokenNetworkStatus"
+    ></custom-broken-network>
     <wd-tabs v-model="tab" auto-line-width lineHeight="1">
       <block v-for="item in tabs" :key="item">
         <wd-tab :title="`${item}`" :name="item">
@@ -11,28 +17,38 @@
     <wd-button>主要按钮</wd-button>
     <wd-button type="success">成功按钮</wd-button>
     <wd-button type="info">信息按钮</wd-button>
-    <wd-button type="warning">警告按钮</wd-button>
+    <wd-button
+      @click="brokenNetworkStatus = !brokenNetworkStatus"
+      type="warning"
+      >断网按钮</wd-button
+    >
     <wd-button @click="navigateTo({ url: Home.path, toast })" type="error"
       >危险按钮</wd-button
     >
-    <image class="logo" src="/static/logo.png"></image>
-    <view class="text-area"> </view>
+    <wd-button type="primary" @click="show = true">显示遮罩层</wd-button>
+    <wd-overlay :show="show" @click="show = false" />
+    <view class="text-area" style="height: 100vh; background-color: aqua">
+    </view>
   </view>
-  <wd-toast />
 </template>
 
 <script setup>
-import { useToast } from "wot-design-uni";
 import { getCurrentPageInfo, navigateTo } from "@/utils/index.js";
 import { Home } from "@/utils/router.js";
-import { onMounted, ref } from "vue";
-const toast = useToast();
+import { computed, onMounted, ref } from "vue";
 const tabs = ref(["Wot", "Design", "Uni"]);
 const tab = ref("Design");
 const title = "12312";
+const brokenNetworkStatus = ref(false);
+const show = ref(false);
+
 const initData = () => {
-  console.log(111);
+  console.log("初始化方法");
 };
+defineExpose({
+  brokenNetworkStatus,
+  initData,
+});
 </script>
 
 <style>
