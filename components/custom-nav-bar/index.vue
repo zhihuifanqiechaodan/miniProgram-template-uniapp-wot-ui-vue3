@@ -1,13 +1,6 @@
 <template>
-  <view
-    catchtap="handleBackTop"
-    :style="{ 'z-index': zIndex, customStyle }"
-    class="custom-nav-bar"
-    :class="{ 'custom-nav-bar--fixed': fixed }"
-  >
-    <view
-      :style="{ height: `${appStore.systemInfo.menuButton.top || 48}px` }"
-    ></view>
+  <view catchtap="handleBackTop" :style="{ 'z-index': zIndex, customStyle }" class="custom-nav-bar" :class="{ 'custom-nav-bar--fixed': fixed }">
+    <view :style="{ height: `${appStore.systemInfo.menuButton.top || 48}px` }"></view>
     <view
       v-if="showSlot"
       :style="{
@@ -19,58 +12,33 @@
         <slot />
       </view>
     </view>
-    <view
-      v-else
-      :style="{ height: `${appStore.systemInfo.menuButton.height}px` }"
-      class="custom-nav-bar-content"
-    >
-      <view v-if="title" class="custom-nav-bar-title van-ellipsis">{{
-        title
-      }}</view>
-      <view
-        v-if="showHome"
-        @click="handleReLaunchHome"
-        class="custom-nav-bar-home-icon"
-      >
-        <custom-image
-          src="/static/home.png"
-          mode="heightFix"
-          :height="`${appStore.systemInfo.menuButton.height}px`"
-        />
+    <view v-else :style="{ height: `${appStore.systemInfo.menuButton.height}px` }" class="custom-nav-bar-content">
+      <view v-if="title" class="custom-nav-bar-title van-ellipsis">{{ title }}</view>
+      <view v-if="showHome" @click="handleReLaunchHome" class="custom-nav-bar-home-icon">
+        <custom-image src="/static/home.png" mode="heightFix" :height="`${appStore.systemInfo.menuButton.height}px`" />
       </view>
-      <view
-        v-if="showBack"
-        @click="handleNavigateBack"
-        class="custom-nav-bar-back-icon"
-      >
-        <custom-image
-          src="/static/back.png"
-          mode="heightFix"
-          :height="`${appStore.systemInfo.menuButton.height}px`"
-        />
+      <view v-if="showBack" @click="handleNavigateBack" class="custom-nav-bar-back-icon">
+        <custom-image src="/static/back.png" mode="heightFix" :height="`${appStore.systemInfo.menuButton.height}px`" />
       </view>
     </view>
   </view>
-  <view
-    v-if="fixed && placeholder"
-    :style="{ height: `${appStore.systemInfo.menuButton.bottom}px` }"
-  ></view>
+  <view v-if="fixed && placeholder" :style="{ height: `${appStore.systemInfo.menuButton.bottom}px` }"></view>
 </template>
 
 <script setup>
-import { useAppStore } from "@/stores/index.js";
-import { navigateTo } from "@/utils/index.js";
-import { Home } from "@/utils/router.js";
+import { useAppStore } from '@/stores/index.js';
+import { navigateTo } from '@/utils/index.js';
+import { Home } from '@/utils/router.js';
 
 const appStore = useAppStore();
-const props = defineProps({
+defineProps({
   fixed: {
     type: Boolean,
     default: true,
   },
   title: {
     type: String,
-    default: "",
+    default: '',
   },
   backTop: {
     type: Boolean,
@@ -82,7 +50,7 @@ const props = defineProps({
   },
   customStyle: {
     type: String,
-    default: "",
+    default: '',
   },
   showHome: {
     type: Boolean,
@@ -102,18 +70,18 @@ const props = defineProps({
   },
   height: {
     type: String,
-    default: "",
+    default: '',
   },
 });
 const handleNavigateBack = () => {
   navigateTo({
-    type: "navigateBack",
+    type: 'navigateBack',
   });
 };
 const handleReLaunchHome = () => {
   navigateTo({
     url: Home.path,
-    type: "reLaunch",
+    type: 'reLaunch',
   });
 };
 </script>
@@ -121,7 +89,7 @@ const handleReLaunchHome = () => {
 <style scoped lang="scss">
 .custom-nav-bar {
   &.custom-nav-bar--fixed {
-	  z-index: 100000;
+    z-index: 100000;
     position: fixed;
     left: 0;
     top: 0;

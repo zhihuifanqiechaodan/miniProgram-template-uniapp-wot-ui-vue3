@@ -1,9 +1,7 @@
-import {
-	ref,
-} from 'vue'
+import { ref } from 'vue';
 export default () => {
-	const a = ref(false)
-	return {
-		a
-	}
-}
+  const a = ref(false);
+  return {
+    a,
+  };
+};

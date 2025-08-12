@@ -1,12 +1,7 @@
 <template>
   <view class="content">
-    <custom-nav-bar
-      :showHome="true"
-      custom-style="background-color: #ffffff;"
-    />
-    <custom-broken-network
-      :brokenNetworkStatus="brokenNetworkStatus"
-    ></custom-broken-network>
+    <custom-nav-bar :showHome="true" custom-style="background-color: #ffffff;" />
+    <custom-broken-network :brokenNetworkStatus="brokenNetworkStatus"></custom-broken-network>
     <wd-tabs v-model="tab" auto-line-width lineHeight="1">
       <block v-for="item in tabs" :key="item">
         <wd-tab :title="`${item}`" :name="item">
@@ -17,33 +12,25 @@
     <wd-button>主要按钮</wd-button>
     <wd-button type="success">成功按钮</wd-button>
     <wd-button type="info">信息按钮</wd-button>
-    <wd-button
-      @click="brokenNetworkStatus = !brokenNetworkStatus"
-      type="warning"
-      >断网按钮</wd-button
-    >
-    <wd-button @click="navigateTo({ url: Home.path, toast })" type="error"
-      >危险按钮</wd-button
-    >
+    <wd-button @click="brokenNetworkStatus = !brokenNetworkStatus" type="warning">断网按钮</wd-button>
+    <wd-button @click="navigateTo({ url: Home.path, toast })" type="error">危险按钮</wd-button>
     <wd-button type="primary" @click="show = true">显示遮罩层</wd-button>
     <wd-overlay :show="show" @click="show = false" />
-    <view class="text-area" style="height: 100vh; background-color: aqua">
-    </view>
+    <view class="text-area" style="height: 100vh; background-color: aqua"> </view>
   </view>
 </template>
 
 <script setup>
-import { getCurrentPageInfo, navigateTo } from "@/utils/index.js";
-import { Home } from "@/utils/router.js";
-import { computed, onMounted, ref } from "vue";
-const tabs = ref(["Wot", "Design", "Uni"]);
-const tab = ref("Design");
-const title = "12312";
+import { navigateTo } from '@/utils/index.js';
+import { Home } from '@/utils/router.js';
+import { ref } from 'vue';
+const tabs = ref(['Wot', 'Design', 'Uni']);
+const tab = ref('Design');
 const brokenNetworkStatus = ref(false);
 const show = ref(false);
 
 const initData = () => {
-  console.log("初始化方法");
+  console.log('初始化方法');
 };
 defineExpose({
   brokenNetworkStatus,
@@ -54,7 +41,7 @@ defineExpose({
 <style>
 .wd-tabs__line {
   background-color: transparent !important;
-  background-image: url("https://fabrique.oss-cn-qingdao.aliyuncs.com/fabrique-miniProgram/navbar-underline.png") !important;
+  background-image: url('https://fabrique.oss-cn-qingdao.aliyuncs.com/fabrique-miniProgram/navbar-underline.png') !important;
   background-size: 100% 100% !important;
 }
 

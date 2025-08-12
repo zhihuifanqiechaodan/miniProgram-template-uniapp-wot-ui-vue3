@@ -1,49 +1,25 @@
 <template>
   <view class="custom-virtual-list">
     <view
-      v-for="(
-        virtualData2DListItem, virtualData2DListIndex
-      ) in virtualData2DList"
+      v-for="(virtualData2DListItem, virtualData2DListIndex) in virtualData2DList"
       :key="virtualData2DListIndex"
       :data-virtual-index="virtualData2DListIndex"
       class="virtual-list-item"
       :class="`virtual-list-item-${virtualData2DListIndex}`"
     >
-      <view
-        v-if="
-          state.virtualValue.includes(virtualData2DListIndex) ||
-          !state.virtualValue.length
-        "
-        :style="customStyle"
-      >
-        <view
-          v-for="(item, index) in virtualData2DListItem"
-          :key="item.id || index"
-        >
-          <slot
-            :virtualItem="item"
-            :virtualIndex="pageSize * virtualData2DListIndex + index"
-          ></slot>
+      <view v-if="state.virtualValue.includes(virtualData2DListIndex) || !state.virtualValue.length" :style="customStyle">
+        <view v-for="(item, index) in virtualData2DListItem" :key="item.id || index">
+          <slot :virtualItem="item" :virtualIndex="pageSize * virtualData2DListIndex + index"></slot>
         </view>
       </view>
-      <view
-        v-else
-        :style="{ height: state.virtualHeight[virtualData2DListIndex] + 'px' }"
-      ></view>
+      <view v-else :style="{ height: state.virtualHeight[virtualData2DListIndex] + 'px' }"></view>
     </view>
   </view>
 </template>
 
 <script setup>
-import {
-  computed,
-  getCurrentInstance,
-  onMounted,
-  onUnmounted,
-  reactive,
-  watch,
-} from "vue";
-import * as _ from "lodash-es";
+import { computed, getCurrentInstance, onMounted, onUnmounted, reactive, watch } from 'vue';
+import * as _ from 'lodash-es';
 
 const currentInstance = getCurrentInstance();
 let virtualListObserve = null;
@@ -69,7 +45,7 @@ const props = defineProps({
   },
   customStyle: {
     type: String,
-    default: "",
+    default: '',
   },
 });
 const state = reactive({
@@ -86,7 +62,7 @@ onMounted(() => {
       uni
         .createSelectorQuery()
         .in(currentInstance.proxy)
-        .selectAll(".virtual-list-item")
+        .selectAll('.virtual-list-item')
         .boundingClientRect()
         .exec((value) => {
           value[0].forEach((item, index) => {
@@ -94,9 +70,7 @@ onMounted(() => {
               if (state.virtualHeight[index] === item.height) return;
               state.virtualHeight[index] = item.height;
             } else {
-              const rows = Math.ceil(
-                virtualData2DList.value[index].length / props.columns
-              );
+              const rows = Math.ceil(virtualData2DList.value[index].length / props.columns);
               state.virtualHeight[index] = rows * props.estimatedHeight;
             }
           });
@@ -117,30 +91,24 @@ const observeVirtualList = () => {
     observeAll: true,
     nativeMode: true,
   });
-  virtualListObserve
-    .relativeToViewport()
-    .observe(".virtual-list-item", (value) => {
-      const {
-        intersectionRatio,
-        dataset: { virtualIndex },
-      } = value;
-      if (intersectionRatio) {
-        uni
-          .createSelectorQuery()
-          .in(currentInstance.proxy)
-          .select(`.virtual-list-item-${virtualIndex}`)
-          .boundingClientRect()
-          .exec((value) => {
-            if (state.virtualHeight[virtualIndex] === value[0].height) return;
-            state.virtualHeight[virtualIndex] = value[0].height;
-          });
-        state.virtualValue = [
-          Math.max(virtualIndex - 1, 0),
-          virtualIndex,
-          Math.min(virtualData2DList.value.length - 1, virtualIndex + 1),
-        ];
-      }
-    });
+  virtualListObserve.relativeToViewport().observe('.virtual-list-item', (value) => {
+    const {
+      intersectionRatio,
+      dataset: { virtualIndex },
+    } = value;
+    if (intersectionRatio) {
+      uni
+        .createSelectorQuery()
+        .in(currentInstance.proxy)
+        .select(`.virtual-list-item-${virtualIndex}`)
+        .boundingClientRect()
+        .exec((value) => {
+          if (state.virtualHeight[virtualIndex] === value[0].height) return;
+          state.virtualHeight[virtualIndex] = value[0].height;
+        });
+      state.virtualValue = [Math.max(virtualIndex - 1, 0), virtualIndex, Math.min(virtualData2DList.value.length - 1, virtualIndex + 1)];
+    }
+  });
 };
 const closeVirtualListObserve = () => {
   if (virtualListObserve) {
