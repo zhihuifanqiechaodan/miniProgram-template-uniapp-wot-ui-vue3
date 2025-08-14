@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   // 换行的宽度，默认80
   printWidth: 200,
   // Tab字符的空格数量，默认值2
@@ -21,25 +21,4 @@ module.exports = {
   htmlWhitespaceSensitivity: 'css',
   // 换行符，默认值从2.0版本开始使用lf
   endOfLine: 'lf',
-  // 重写配置
-  overrides: [
-    {
-      files: '*.wxml',
-      options: {
-        parser: 'html',
-      },
-    },
-    {
-      files: '*.wxss',
-      options: {
-        parser: 'css',
-      },
-    },
-    {
-      files: '*.wxs',
-      options: {
-        parser: 'babel',
-      },
-    },
-  ],
 };

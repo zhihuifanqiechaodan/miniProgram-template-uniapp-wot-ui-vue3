@@ -7,11 +7,9 @@
     "prepare": "husky"
   },
   "lint-staged": {
-    "*.{vue,js,ts,jsx,tsx}": [
+    "*.{vue,js}": [
+      "npm run format",
       "npm run lint"
-    ],
-    "*.{html,vue,ts,js,json,md}": [
-      "npm run format"
     ]
   },
   "dependencies": {
@@ -26,5 +24,6 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.1.5",
     "prettier": "^3.6.2"
-  }
+  },
+  "type": "module"
 }

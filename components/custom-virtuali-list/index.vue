@@ -30,18 +30,20 @@ const props = defineProps({
       return [];
     },
   },
-  //   虚拟列表每页显示的数量，注意item高度+数量+列数一定要超过当前屏幕的展示区域
+  // 虚拟列表每页显示的数量，注意item高度+数量+列数一定要超过当前屏幕的展示区域
   pageSize: {
     type: Number,
     default: 20,
   },
+  // 预估item高度
   estimatedHeight: {
     type: Number,
     default: 40,
   },
+  // 支持1,2,3等多列布局
   columns: {
     type: Number,
-    default: 1, // 支持1,2,3等多列布局
+    default: 1,
   },
   customStyle: {
     type: String,
