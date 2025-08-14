@@ -1,48 +1,21 @@
 <template>
   <view class="home-container">
     home页面
-    <customVirtualiList
-      :columns="2"
-      :dataList="dataList"
-      :pageSize="pageSize"
-      class="test"
-      custom-style="display: flex; flex-wrap: wrap; justify-content: space-between; padding: 0 40rpx;"
-    >
+    <customVirtualiList :columns="2" :dataList="dataList" :pageSize="pageSize" class="test" custom-style="display: flex; flex-wrap: wrap; justify-content: space-between; padding: 0 40rpx;">
       <template #default="{ virtualItem, virtualIndex }">
         <view class="goods-item">
           {{ virtualIndex }}
-          <custom-image
-            width="320rpx"
-            height="480rpx"
-            :src="
-              virtualItem.spuSlidingCoverImages[0] ||
-              virtualItem.miniCoverImage ||
-              virtualItem.coverImage
-            "
-            class="goods-image"
-          >
-          </custom-image>
+          <custom-image width="320rpx" height="480rpx" :src="virtualItem.spuSlidingCoverImages[0] || virtualItem.miniCoverImage || virtualItem.coverImage" class="goods-image"> </custom-image>
           <view class="description">
             <view class="description-header">
-              <view v-if="virtualItem.spuBrand" class="spuBrand van-ellipsis"
-                >{{ virtualItem.spuBrand }}
-              </view>
-              <view
-                v-if="virtualItem.brandSuffix"
-                class="brandSuffix van-ellipsis"
-              >
+              <view v-if="virtualItem.spuBrand" class="spuBrand van-ellipsis">{{ virtualItem.spuBrand }} </view>
+              <view v-if="virtualItem.brandSuffix" class="brandSuffix van-ellipsis">
                 {{ virtualItem.brandSuffix }}
               </view>
-              <view
-                v-if="virtualItem.spuName"
-                class="spuName van-multi-ellipsis--l2"
-              >
+              <view v-if="virtualItem.spuName" class="spuName van-multi-ellipsis--l2">
                 {{ virtualItem.spuName }}
               </view>
-              <view
-                v-if="virtualItem.relateColorCountDescription"
-                class="relateColorCountDescription"
-              >
+              <view v-if="virtualItem.relateColorCountDescription" class="relateColorCountDescription">
                 {{ virtualItem.relateColorCountDescription }}
               </view>
             </view>
@@ -55,11 +28,7 @@
                 }"
                 >¥{{ virtualItem.minSkuPriceStr }}</text
               >
-              <text
-                v-if="virtualItem.salePrice"
-                class="salePrice van-ellipsis"
-                >{{ virtualItem.salePrice }}</text
-              >
+              <text v-if="virtualItem.salePrice" class="salePrice van-ellipsis">{{ virtualItem.salePrice }}</text>
             </view>
           </view>
         </view>
@@ -69,9 +38,9 @@
 </template>
 
 <script setup>
-import customVirtualiList from "@/components/custom-virtuali-list/index.vue";
-import { ref, onMounted } from "vue";
-import { onReachBottom } from "@dcloudio/uni-app";
+import customVirtualiList from '@/components/custom-virtuali-list/index.vue';
+import { ref, onMounted } from 'vue';
+import { onReachBottom } from '@dcloudio/uni-app';
 
 const dataList = ref([]);
 const pageNum = ref(0);
@@ -79,11 +48,11 @@ const pageSize = ref(10);
 
 const addData = () => {
   uni.request({
-    url: "https://www.fabrique.cn/api/fbapp/mini/cont/index/guess/like",
-    method: "POST",
+    url: 'https://www.fabrique.cn/api/fbapp/mini/cont/index/guess/like',
+    method: 'POST',
     header: {
-      "content-type": "application/json",
-      deviceid: "241e48f5-2f5c-483b-9d28-b16f6212fc33",
+      'content-type': 'application/json',
+      deviceid: '241e48f5-2f5c-483b-9d28-b16f6212fc33',
     },
     data: {
       pageNum: (pageNum.value += 1),
